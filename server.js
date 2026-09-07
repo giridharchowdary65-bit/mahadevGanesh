@@ -9,7 +9,7 @@ const crypto = require("crypto");
 
 const app = express();
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000
 const adminSessions = new Set();
 function requireAdmin(req, res, next) {
     const token = req.headers["x-admin-token"];
@@ -614,7 +614,7 @@ app.use((error, req, res, next) => {
 // START SERVER
 // =====================================================
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
 
     console.log(
         `Gallery server running at http://localhost:${PORT}`
