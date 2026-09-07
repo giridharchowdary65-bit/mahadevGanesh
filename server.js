@@ -9,7 +9,8 @@ const crypto = require("crypto");
 
 const app = express();
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5000;
+const BACKEND_URL = process.env.BACKEND_URL || `http://127.0.0.1:${PORT}`;
 const adminSessions = new Set();
 function requireAdmin(req, res, next) {
     const token = req.headers["x-admin-token"];
@@ -364,7 +365,7 @@ app.get("/api/photos/:yearId", (req, res) => {
 
         const photos = rows.map(photo => ({
             ...photo,
-            url: `http://127.0.0.1:${PORT}/uploads/${photo.filename}`
+             url:`${BACKEND_URL}/uploads/${photo.filename}` 
         }));
 
         res.json(photos);
@@ -545,7 +546,7 @@ app.post(
                                 filename: file.filename,
                                 original_name: file.originalname,
                                 url:
-                                    `http://127.0.0.1:${PORT}/uploads/${file.filename}`
+                                     `${BACKEND_URL}/uploads/${file.filename}`
                             });
 
                         }
